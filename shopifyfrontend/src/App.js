@@ -20,12 +20,17 @@ function App() {
                   .then((json) => {
                     setData(json)
                   })
+    data.nominated = false;
     console.log(data);
   }
 
 
   const addMovie = (data) => {
-    saved_movies_list.push(data);
+    if (data.Title){
+      saved_movies_list.push(data);
+    }else{
+      window.alert("No Movie Currently Selected");
+    }
     console.log(saved_movies_list);
 
   }
@@ -40,15 +45,16 @@ function App() {
     <div className='hometown'>
       <h2>Shopify Front end</h2>
       <input type="text" onChange={e => queryApi(e.target.value)}></input>
-      <h2>{query}</h2>
-      <h2>resultsss</h2>
-    
-      <div className='hometown'>Value 1 {query && <div>Title {data.Title} Year {data.Year} </div>} </div>
-      <button>Nominate</button>
-      <button onClick={e => addMovie(data)}>Save Movie</button>
+      <h2>results</h2>
+      { !query ? <div>No Movie Currently Entered</div> : 
+      <div> 
+        <div className='hometown'>Value 1 {query && <div>Title {data.Title} Year {data.Year} </div>} </div>
+        <button>Nominate</button>
+        <button onClick={e => addMovie(data)}>Save Movie</button>
+      </div>}
 
       
-
+      <h2>Saved Movies</h2>
       {saved_movies_list && <div> {listMovies} </div>}
 
 
