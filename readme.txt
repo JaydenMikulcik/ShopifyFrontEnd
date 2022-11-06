@@ -1,5 +1,6 @@
-This is a front end and backend implementation of the
+This is a front end implementation of the Shopify Frontend Intern Challenge,
 
-Shopify Frontend Intern Challenge starter project for the 
+To start the application clone the repo run these commands
 
-code the world thing
+cd shopifyfrontend
+npm start
