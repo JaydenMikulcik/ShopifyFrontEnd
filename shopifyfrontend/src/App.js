@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from "react";
 
 import Savedmovies from "./components/savedmovies"
+import "./styles.css";
 
 const API_KEY = "2b9bc719";
 let saved_movies_list = [];
@@ -32,31 +33,42 @@ function App() {
       window.alert("No Movie Currently Selected");
     }
     console.log(saved_movies_list);
-
   }
 
   let listMovies = saved_movies_list.map((movie, i) => {
+    const deleteMovie = (title) => {
+      saved_movies_list.splice(saved_movies_list.findIndex(movie => movie.Title === title), 1)
+    }
+    const nominateMovie = (title) => {
+      saved_movies_list.forEach((movie) => {
+        if (movie.Title === title) {
+          movie.nominated = true;
+        }
+    })
+    }
     return (
-      <Savedmovies key={i} title={movie.Title} year={movie.Year} nominated={false}/>
+      <Savedmovies key={i} title={movie.Title} year={movie.Year} nominated={movie.nominated} delete={deleteMovie}
+       nominate={nominateMovie} className='display_movie'/>
       )
 });
 
   return (
-    <div className='hometown'>
-      <h2>Shopify Front end</h2>
-      <input type="text" onChange={e => queryApi(e.target.value)}></input>
-      <h2>results</h2>
+    <div className='headers'>
+      <h1>Shopify Frontend Intern Challenge</h1>
+      <input type="text" onChange={e => queryApi(e.target.value)} className='searchbar' placeholder='search...'></input>
+      <h2>Result</h2>
       { !query ? <div>No Movie Currently Entered</div> : 
       <div> 
-        <div className='hometown'>Value 1 {query && <div>Title {data.Title} Year {data.Year} </div>} </div>
-        <button>Nominate</button>
+        <div className='hometown'>Current Movie {query && <div>Title: {data.Title} Year: {data.Year} </div>} </div>
+        <button onClick={e => setData({...data, nominated: true})}>Nominate</button>
         <button onClick={e => addMovie(data)}>Save Movie</button>
       </div>}
 
       
       <h2>Saved Movies</h2>
+      <div className='centered'>
       {saved_movies_list && <div> {listMovies} </div>}
-
+      </div>
 
     </div>
   );

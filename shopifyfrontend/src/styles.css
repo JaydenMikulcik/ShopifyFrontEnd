@@ -1,4 +1,33 @@
-.hometown {
-    background-color: yellow;
-    border:1px solid black;
+.headers {
+    display: 'flex';
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    align-items: center;
+    align-content: 'center';
+  }
+
+.searchbar {
+  width:300px;
+  height:25px;
+  border-radius:25px;
+  text-align: center;
+  border-width: 1px;
+}
+
+.display_movie {
+    justify-content: center;
+    align-items: center;
+    border:1px solid #000000;
+    width: 100%;
+    padding: 30px;
+    margin: 20px;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    width: 95%;
   }
