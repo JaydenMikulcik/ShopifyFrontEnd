@@ -5,11 +5,12 @@ import Savedmovies from "./components/savedmovies"
 import "./styles.css";
 
 const API_KEY = "2b9bc719";
-let saved_movies_list = [];
+//let saved_movies_list = [];
 
 
 function App() {
 
+  var saved_movies_list = JSON.parse(localStorage.getItem('movieInfo')) || [];
   const [query, setQuery] = useState("");
   const [data, setData] = useState({});
 
@@ -29,6 +30,8 @@ function App() {
   const addMovie = (data) => {
     if (data.Title){
       saved_movies_list.push(data);
+      localStorage.setItem('movieInfo', JSON.stringify(saved_movies_list));
+      window.location.reload(false);
     }else{
       window.alert("No Movie Currently Selected");
     }
@@ -36,14 +39,19 @@ function App() {
   }
 
   let listMovies = saved_movies_list.map((movie, i) => {
+
     const deleteMovie = (title) => {
       saved_movies_list.splice(saved_movies_list.findIndex(movie => movie.Title === title), 1)
+      localStorage.setItem('movieInfo', JSON.stringify(saved_movies_list));
+      window.location.reload(false);
     }
     const nominateMovie = (title) => {
       saved_movies_list.forEach((movie) => {
         if (movie.Title === title) {
           movie.nominated = true;
+          localStorage.setItem('movieInfo', JSON.stringify(saved_movies_list));
         }
+        window.location.reload(false);
     })
     }
     return (
